@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>PTB2</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="ptb2.css">
+        <link rel="stylesheet" href="menu.css">
+    </head>
+    <body>
+        <div id="menu">
+            <ul>
+                <li><a href="ptb2.html" target="_blank">PTB2</a></li>
+                <li><a href="bosuutapanh.html" target="_blank">Sưu tập ảnh</a></li>
+                <li><a href="trangbanhang.html" target="_blank">Trang bán hàng</a></li>
+                <li><a href="trangdangky.html" target="_blank">Trang đăng kí</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3>GIẢI PHƯƠNG TRÌNH: ax<sup>2</sup> + bx + c = 0</h3>
+            <span>Số lần giải: <b id="solangiai" ></b></span>
+            <hr>
+            <form>
+                <p><label>Nhập số a: </label><input type="text" id="a"></p>
+                <p><label>Nhập số b: </label><input type="text" id="b"></p>
+                <p><label>Nhập số c: </label><input type="text" id="c"></p>
+                <button type="button" class="khoa" disabled id="giaipt" onclick="ptb2.giai(); dem()"> GIẢI PT </button>
+                <button type="button" class="nut" id="btchoso" onclick="choso()"> CHO SỐ</button>
+            </form>
+            <div id="kq"> </div>
+            <p id="dongho"></p>
+        </div>
+    </body>
+</html>
+<script>
+    function choso(){
+        var a = (-10+Math.round(Math.random()*20));
+        var b = (-10+Math.round(Math.random()*20));
+        var c = (-10+Math.round(Math.random()*20));
+        document.getElementById("a").value=a;
+        document.getElementById("b").value=b;
+        document.getElementById("c").value=c;
+        var btn = document.getElementById("giaipt");
+        btn.disabled=false;
+        btn.className='nut';
+    }
+</script>
+<script>
+    var ptb2={
+        giai:function(){
+            var a = document.getElementById("a").value;
+            var b = document.getElementById("b").value;
+            var c = document.getElementById("c").value;
+            if(a==0){
+                if(b==0){
+                    var ptb1=`<p>Phương trình bậc 1</p>
+                        <p>Phương trình vô nghiệm</p>
+                    `;
+                    document.getElementById("kq").innerHTML=ptb1;
+                }else{
+                    var x= -c/b;
+                    var ptb1_1=`<p>Phương trình bậc 1</p>
+                        <p>X = ${x}</p>
+                    `;
+                    document.getElementById("kq").innerHTML=ptb1_1;
+                }
+            }else{
+                var denta= Math.pow(b,2) - 4*a*c;
+                if(denta > 0){
+                    var x1=(-b+Math.sqrt(denta))/(2*a);
+                    var x2=(-b-Math.sqrt(denta))/(2*a);
+                    var str=`<p>Phương trình có 2 nghiệm phân biệt</p>
+                        <p>X<sub>1</sub>= ${x1}</p>
+                        <p>X<sub>2</sub>= ${x2}</p>
+                    `;
+                    document.getElementById("kq").innerHTML=str;
+                }else if(denta == 0){
+                    // document.write("<p>Phương trình có nghiệm kép.</p>");
+                    // var x0=-b/(2*a);
+                    // document.write("<p>x0 = "+x0+"</p>");
+                    var x0=-b/(2*a);
+                    var nk=`<p>Phương trình có nghiệm kép</p>
+                        <p>X = ${x0}</p>
+                    `;
+                    document.getElementById("kq").innerHTML=nk;
+                }else{
+                    var vn=`<p>Phương trình vô nghiệm</p>`;
+                    document.getElementById("kq").innerHTML=vn;
+                }
+            }
+            btn=document.getElementById("giaipt");
+            btn.className="khoa";
+            btn.disabled=true;
+        }
+    }    
+</script>
+<script>
+    var solangiai=0;
+    function dem(){
+        var count= localStorage.getItem("dem");
+        if(count == null){
+            count=1;
+        }else{
+            count = Number(count);
+            count++;
+        }
+        localStorage.setItem("dem",count);
+        solangiai++;
+        document.getElementById("solangiai").innerHTML=count;
+    }
+</script>
+<script>
+    function tg(){
+        var d=new Date();
+        var nam= d.getFullYear();
+        var thang=d.getMonth();
+        var ngay=d.getDate();
+        var gio=d.getHours();
+        var phut=d.getMinutes();
+        var giay=d.getSeconds();
+        var str=`Hiện tại đang: ${ngay}/${thang}/${nam} ${gio}:${phut}:${giay}`;
+        document.getElementById("dongho").innerHTML=str;
+    }
+    setInterval("tg()", 1000);
+</script>

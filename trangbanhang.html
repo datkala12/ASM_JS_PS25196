@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <title>Nguyễn Thành Đạt</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="menu.css">
+        <style>
+            body{
+                background-color: darkgrey;
+                font-size: 1em;
+            }
+            h3{
+                font-size: 1.6em;
+                color: red;
+            }
+            .container{
+                width: 800px;
+                text-align: center;
+                margin: 50px auto;
+            }
+            #checkbox{
+                width: 70px;
+                text-align: center;
+            }
+            #number{
+                text-align: center;
+            }
+            td{
+                text-align: center;
+            }
+            #tensp{
+                width: 130px;
+            }
+            .gia{
+                width: 100px;
+            }
+            table{
+
+                margin-left: 100px;
+                margin-top: 20px;
+                background-color: cornflowerblue;
+            }
+            input{
+                background-color: thistle;
+            }
+            #mucgia{
+                background-color: coral;
+                text-align: center;
+                font-weight: bold;
+                width: 100px;
+                height: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu">
+            <ul>
+                <li><a href="ptb2.html" target="_blank">PTB2</a></li>
+                <li><a href="bosuutapanh.html" target="_blank">Sưu tập ảnh</a></li>
+                <li><a href="trangbanhang.html" target="_blank">Trang bán hàng</a></li>
+                <li><a href="trangdangky.html" target="_blank">Trang đăng kí</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3>BÁN HÀNG</h3>
+            <select id="mucgia" onchange="doimucgia()">
+                <option value="0">Mức giá</option>
+                <option value="200">200</option>
+                <option value="400">400</option>
+                <option value="600">600</option>
+                <option value="800">800</option>
+                <option value="1000">1000</option>
+            </select><br>
+            <table border="2" width="575px" height="120px" cellpadding="3" cellspacing="3">
+                <tr>
+                    <th colspan="2">Hàng hóa</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th id="thanhtien">Thành tiền</th>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(0)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Iphone 9</td>
+                    <td name="gia" width="100px">900</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien" width="120px"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(1)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Samsung</td>
+                    <td name="gia">400</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(2)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Nokia</td>
+                    <td name="gia">100</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(3)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Sony Xperia</td>
+                    <td name="gia">450</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(4)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Motorola</td>
+                    <td name="gia">180</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(5)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Oppo</td>
+                    <td name="gia">600</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td id="checkbox"><input onclick="tich1checkbox(6)" type="checkbox" name="checkbox" value="value"></td>
+                    <td id="tensp">Bphone</td>
+                    <td name="gia">90</td>
+                    <td id="number"><input onkeyup="thanhtien(this)" value="0" name="number" disabled></td>
+                    <td name="thanhtien"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">TỔNG</td>
+                    <td id="tinhtong"></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script>
+        function doimucgia(){
+            var arrGia = document.getElementsByName("gia");
+            var obj = document.getElementById("mucgia");
+            mucdangchon=obj.value;
+            for( i=0;i<arrGia.length;i++){
+                gia=parseFloat(arrGia[i].innerText);
+                if(gia<mucdangchon){
+                    arrGia[i].parentNode.style.display="";
+                }
+                else{
+                    arrGia[i].parentNode.style.display="none";
+                }
+            }
+            tongtien();
+        }
+    </script>
+    <script>
+        function tich1checkbox(i){
+            var arrSL=document.getElementsByName("number");
+            arrSL[i].disabled = !arrSL[i].disabled;
+            if(arrSL[i].disabled==true){
+                arrSL[i].value=0;
+                arrSL[i].parentNode.nextElementSibling.innerText="";
+            }
+            tongtien();
+        }
+
+        function thanhtien(obj){
+            var number=obj.value;
+            var gia=obj.parentNode.previousElementSibling.innerText;
+            obj.parentNode.nextElementSibling.innerText=number*gia;
+            tongtien();
+        }
+
+        function tongtien(){
+            tt=0;
+            var arrTT=document.getElementsByName("thanhtien");
+            for(i=0;i<arrTT.length;i++){
+                if(arrTT[i].parentNode.style.display==""){
+                    tien= arrTT[i].innerText;
+                    tt+=Number(tien);
+                }    
+            }
+            document.getElementById("tinhtong").innerText=tt;
+        }
+    </script>
+</html>
